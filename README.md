@@ -1,2 +1,2 @@
 # JojaMart
-solol project, JojaMart based online store
+solo project, JojaMart-based online store
