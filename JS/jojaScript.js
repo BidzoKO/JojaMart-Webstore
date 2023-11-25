@@ -1,9 +1,9 @@
 
-const carousel = document.querySelector(".limited-item-container");
+const carousel = document.querySelector(".limited-items-container");
 const scrollArrows = document.querySelectorAll(".catalog-arrow");
 const popularItem = document.querySelector(".limited-offers-item");
 
-let popularItemWidth = popularItem.clientWidth + 40;
+let popularItemWidth = (2*popularItem.clientWidth) + 50;
 
 let scrollTimeOut = false;
 
