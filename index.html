@@ -10,11 +10,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@100;300;400&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
+    <!--login form-->
+    <div class="login-form">
+      <div class="close-btn">&times;</div>
+      <div class="login-prompt-text"><h2>Log In</h2></div>
+      <div class="login-prompt-elements">
+        <div class="login-prompt-element">
+          <label for="email">Email</label>
+          <input type="text" id="login-email" placeholder="Enter Email" />
+        </div>
+        <div class="login-prompt-element">
+          <label for="passoword">password</label>
+          <input
+            type="password"
+            id="login-password"
+            placeholder="Enter password"
+          />
+        </div>
+      </div>
+      <div class="login-prompt-confirm-btn">
+        <button>Sign In</button>
+      </div>
+    </div>
+    <!--header-->
     <header id="header-region">
       <div id="logo-container">
         <img src="JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo" />
@@ -29,7 +52,7 @@
       </div>
       <div id="header-right-container">
         <div id="search-bar">
-          <input type="text" placeholder="Search" id="" />
+          <input type="text" placeholder="Search" id="header-search" />
           <div class="mag-glass-img-container">
             <a href="">
               <img
@@ -38,13 +61,14 @@
             /></a>
           </div>
         </div>
-        <div id="header-cart">
-          <div class="cart-container">
-            <a href="">cart</a>
-          </div>
+        <div id="header-login">
+          <button class="login-btn">
+            <p>Login</p>
+          </button>
         </div>
       </div>
     </header>
+    <!--body-->
     <section id="body-region">
       <section id="body-content-containter">
         <section id="body-limited-offers">
@@ -71,7 +95,7 @@
                   <div class="limited-item-price">
                     <h4>Cost:75</h4>
                     <img
-                      src="../JojaMart/JojaMart_files/element_icons/18px-Gold.png"
+                      src=""
                       alt=""
                     />
                   </div>
@@ -98,17 +122,20 @@
           <div class="popular-item-container">
             <div class="popular-item">
               <div class="popular-item-img-container">
-                <img src="../JojaMart/JojaMart_files/Product_Icons/Permanent/Joja_Cola.png" alt="">
+                <img
+                  src="../JojaMart/JojaMart_files/Product_Icons/Permanent/Joja_Cola.png"
+                  alt=""
+                />
               </div>
               <div class="popular-item-desc">
-                <h2>The flagship product of Joja corporation.	</h2>
+                <h2>The flagship product of Joja corporation.</h2>
               </div>
               <div class="popular-item-price">
                 <h4>cost: 75</h4>
                 <img
-                src="../JojaMart/JojaMart_files/element_icons/18px-Gold.png"
-                alt=""
-              />
+                  src=""
+                  alt=""
+                />
               </div>
             </div>
             <div class="popular-item">2</div>
@@ -122,6 +149,7 @@
         </section>
       </section>
     </section>
+    <!--footer-->
     <section id="footer-region">
       <div id="footer">
         <div class="footer-body">

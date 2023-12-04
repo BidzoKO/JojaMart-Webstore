@@ -19,3 +19,35 @@ scrollArrows.forEach((icon) => {
     }
   });
 });
+
+
+
+// #region login
+
+function disableScroll() {
+  let scrollY = window.scrollY;
+  let scrollX = window.scrollX;
+
+  window.onscroll = function() {
+    window.scrollTo(scrollX, scrollY);
+};
+}
+
+function enableScroll() {
+  window.onscroll = function() {};
+}
+
+document.querySelector(".login-btn").addEventListener("click", () => {
+  document.querySelector(".login-form").classList.add("active");
+  disableScroll();
+});
+
+document.querySelector(".close-btn").addEventListener("click", () =>{
+  document.querySelector(".login-form").classList.remove("active");
+  enableScroll();
+});
+
+// #endregion login
+
+
+
