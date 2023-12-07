@@ -6,7 +6,9 @@
     <title>JojaMart Webstore</title>
     <link rel="stylesheet" href="CSS/style.css" />
     <link rel="icon" href="JojaMart_files/Logo/Joja_Cola.png" />
-    <script src="JS/jojaScript.js" defer></script>
+    <script src="JS/jojaApi.js"defer></script>
+    <script src="JS/jojaScript.js"defer></script>
+    <script src="JS/htmlAssembler.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,27 +18,7 @@
   </head>
   <body>
     <!--login form-->
-    <div class="login-form">
-      <div class="close-btn">&times;</div>
-      <div class="login-prompt-text"><h2>Log In</h2></div>
-      <div class="login-prompt-elements">
-        <div class="login-prompt-element">
-          <label for="email">Email</label>
-          <input type="text" id="login-email" placeholder="Enter Email" />
-        </div>
-        <div class="login-prompt-element">
-          <label for="passoword">password</label>
-          <input
-            type="password"
-            id="login-password"
-            placeholder="Enter password"
-          />
-        </div>
-      </div>
-      <div class="login-prompt-confirm-btn">
-        <button>Sign In</button>
-      </div>
-    </div>
+    <div class="login-form" id="simple-login-form"></div>
     <!--header-->
     <header id="header-region">
       <div id="logo-container">
@@ -56,13 +38,13 @@
           <div class="mag-glass-img-container">
             <a href="">
               <img
-                src="JojaMart_files/element_icons/magnifying-glass-icon.png"
+                src=""
                 alt=""
             /></a>
           </div>
         </div>
         <div id="header-login">
-          <button class="login-btn">
+          <button class="login-btn" id="header-login-btn">
             <p>Login</p>
           </button>
         </div>
@@ -84,7 +66,7 @@
                 <div class="limited-item-content">
                   <div class="limited-item-img-container">
                     <img
-                      src="../JojaMart/JojaMart_files/Product_Icons/Permanent/Joja_Cola.png"
+                      src=""
                       alt=""
                       class="limited-item-img"
                     />
@@ -94,10 +76,7 @@
                   </div>
                   <div class="limited-item-price">
                     <h4>Cost:75</h4>
-                    <img
-                      src=""
-                      alt=""
-                    />
+                    <img src="" alt="" />
                   </div>
                 </div>
               </div>
@@ -123,7 +102,7 @@
             <div class="popular-item">
               <div class="popular-item-img-container">
                 <img
-                  src="../JojaMart/JojaMart_files/Product_Icons/Permanent/Joja_Cola.png"
+                  src=""
                   alt=""
                 />
               </div>
@@ -132,10 +111,7 @@
               </div>
               <div class="popular-item-price">
                 <h4>cost: 75</h4>
-                <img
-                  src=""
-                  alt=""
-                />
+                <img src="" alt="" />
               </div>
             </div>
             <div class="popular-item">2</div>
