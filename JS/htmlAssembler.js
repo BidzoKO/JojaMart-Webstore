@@ -1,18 +1,43 @@
+function disableScroll() {
+  let scrollY = window.scrollY;
+  let scrollX = window.scrollX;
 
+  window.onscroll = function () {
+    window.scrollTo(scrollX, scrollY);
+  };
+}
 
-function injectLoginForm() {
-  fetch("/HTML/IndexPage/temp.html")
+function enableScroll() {
+  window.onscroll = function () {};
+}
+
+function loginValidation(){
+
+}
+
+function assembleLoginForm() {
+  fetch("./HTML/IndexPage/login.html")
     .then((response) => response.text())
     .then((html) => {
-      document.getElementById("simple-login-form").innerHTML = html;
-      document
-        .getElementById("signin-btn")
-        .addEventListener("click", function () {
-          alert("Sign In button clicked!");
-        });
+      document.getElementById("login-form-container-id").innerHTML = html;
 
-      // Add more event listeners or logic as needed
+      const loginForm = document.getElementById("simple-login-form");
+      const closeLoginBtn = document.getElementById("close-login-form-btn");
+      const signInBtn = document.getElementById("signin-btn");
+
+      loginForm.classList.add("active");
+      disableScroll();
+
+      closeLoginBtn.addEventListener("click", () => {
+        enableScroll();
+        document.getElementById("login-form-container-id").innerHTML =
+          "<!--login html-->";
+      });
+
+      signInBtn.addEventListener("click", () => {
+        console.log("SignInStarted");
+        UserLogIn();
+      });
     })
-    .catch((error) => console.error("Error fetching temp.html:", error));
+    .catch((error) => console.error("Error fetching login.html:", error));
 }
-// Call the injectLoginForm function when the page is loaded

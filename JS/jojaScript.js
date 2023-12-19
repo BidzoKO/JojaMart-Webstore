@@ -20,43 +20,19 @@ scrollArrows.forEach((icon) => {
 });
 
 // #region login
-
-const loginForm = document.querySelector("#simple-login-form");
-const logInBtn = document.querySelector("#header-login-btn");
-const closeLoginBtn = document.querySelector("#close-login-form-btn");
-const signInBtn = document.getElementById("signin-btn");
-
-function disableScroll() {
-  let scrollY = window.scrollY;
-  let scrollX = window.scrollX;
-
-  window.onscroll = function () {
-    window.scrollTo(scrollX, scrollY);
-  };
-}
-
-function enableScroll() {
-  window.onscroll = function () {};
-}
-
-let loginEmail = document.getElementById("login-email");
-let loginPassword = document.getElementById("login-password");
-
-signInBtn.addEventListener("click", () => {
-  console.log("SignInStarted");
-  UserLogIn();
-});
+const logInBtn = document.getElementById("header-login-btn");
 
 logInBtn.addEventListener("click", () => {
-  loginForm.classList.add("active");
-  disableScroll();
+  console.log("login");
+  assembleLoginForm();
 });
 
-closeLoginBtn.addEventListener("click", () => {
-  loginForm.classList.remove("active");
-  enableScroll();
-  loginEmail.value = "";
-  loginPassword.value = "";
-});
+
+const springStock = document.getElementById("header-nav-Spring")
+
+springStock.addEventListener("click", () => {
+  console.log("spring clicked");
+  GetUserById();
+})
 
 // #endregion login

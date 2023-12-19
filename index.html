@@ -6,9 +6,10 @@
     <title>JojaMart Webstore</title>
     <link rel="stylesheet" href="CSS/style.css" />
     <link rel="icon" href="JojaMart_files/Logo/Joja_Cola.png" />
-    <script src="JS/jojaApi.js"defer></script>
-    <script src="JS/jojaScript.js"defer></script>
+    <script src="JS/jojaApi.js" defer></script>
+    <script src="JS/jojaScript.js" defer></script>
     <script src="JS/htmlAssembler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -18,7 +19,9 @@
   </head>
   <body>
     <!--login form-->
-    <div class="login-form" id="simple-login-form"></div>
+    <div class="login-form-container" id="login-form-container-id">
+      <!--login html-->
+    </div>
     <!--header-->
     <header id="header-region">
       <div id="logo-container">
@@ -26,21 +29,17 @@
       </div>
       <div id="header-nav-containter">
         <ul>
-          <li><a href="">Permanent Stock</a></li>
-          <li><a href="">Fall Stock</a></li>
-          <li><a href="">Summer Stock</a></li>
-          <li><a href="">Spring Stock</a></li>
+          <li><a id="header-nav-Permanent" href="">Permanent Stock</a></li>
+          <li><a id="header-nav-Fall" href="">Fall Stock</a></li>
+          <li><a id="header-nav-Summer" href="">Summer Stock</a></li>
+          <li><a id="header-nav-Spring" >Spring Stock</a></li>
         </ul>
       </div>
       <div id="header-right-container">
         <div id="search-bar">
           <input type="text" placeholder="Search" id="header-search" />
           <div class="mag-glass-img-container">
-            <a href="">
-              <img
-                src=""
-                alt=""
-            /></a>
+            <a href=""> <img src="" alt="" /></a>
           </div>
         </div>
         <div id="header-login">
@@ -65,11 +64,7 @@
               <div class="limited-offers-item">
                 <div class="limited-item-content">
                   <div class="limited-item-img-container">
-                    <img
-                      src=""
-                      alt=""
-                      class="limited-item-img"
-                    />
+                    <img src="" alt="" class="limited-item-img" />
                   </div>
                   <div class="limited-item-desc">
                     <h2>The flagship product of Joja corporation.</h2>
@@ -101,10 +96,7 @@
           <div class="popular-item-container">
             <div class="popular-item">
               <div class="popular-item-img-container">
-                <img
-                  src=""
-                  alt=""
-                />
+                <img src="" alt="" />
               </div>
               <div class="popular-item-desc">
                 <h2>The flagship product of Joja corporation.</h2>
