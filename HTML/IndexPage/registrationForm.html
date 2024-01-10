@@ -1,0 +1,93 @@
+<form id="registration-form">
+  <div class="close-btn" id="close-registration-form-btn">&times;</div>
+  <div id="login-form">
+    <div class="registration-form-text"><h2>Log In</h2></div>
+    <div class="registration-form-elements-panel">
+      <div class="registration-form-element">
+        <label for="login-email">Email</label>
+        <input type="text" id="login-email" placeholder="Enter Email" />
+      </div>
+      <div class="registration-form-element">
+        <label for="login-password">password</label>
+        <input
+          type="password"
+          id="login-password"
+          placeholder="Enter password"
+        />
+      </div>
+    </div>
+    <div class="registration-form-confirm-btn-panel">
+      <button id="signin-btn" type="button">Sign In</button>
+    </div>
+    <div class="registration-form-bottom-panel">
+      <div class="registration-form-tag">
+        <a id="registration-form-signup-tag">Create a new account</a>
+      </div>
+    </div>
+  </div>
+  <!--signup form-->
+  <div id="signup-form">
+    <div class="registration-form-text"><h2>Sign Up</h2></div>
+    <div
+      class="registration-form-elements-panel"
+      id="signup-form-elements-panel"
+    >
+      <div class="registration-form-element">
+        <label for="signup-fullname">Fullname</label>
+        <input type="text" id="signup-fullname" placeholder="Enter Fullname" />
+        <p id="signup-fullname-error-text" class="registration-error-text"></p>
+      </div>
+      <div class="registration-form-element">
+        <label for="signup-username">Username</label>
+        <input type="text" id="signup-username" placeholder="Enter Username" />
+        <p id="signup-username-error-text" class="registration-error-text"></p>
+      </div>
+      <div class="registration-form-element">
+        <label for="signup-email">Email</label>
+        <input type="text" id="signup-email" placeholder="Enter Email" />
+        <p id="signup-email-error-text" class="registration-error-text"></p>
+      </div>
+      <div class="registration-form-element">
+        <label for="signup-password">Password</label>
+        <input
+          type="password"
+          id="signup-password"
+          placeholder="Enter password"
+        />
+        <p id="signup-password-error-text" class="registration-error-text"></p>
+      </div>
+      <div class="registration-form-element" id="signup-dob-gender-element">
+        <div id="signup-dob-gender-element-labels">
+          <label for="signup-dob">Date Of Birth</label>
+          <label for="signup-gender">Gender</label>
+        </div>
+        <div id="signup-dob-gender-element-inputs">
+          <div class="signup-dob-gender-element-error-container">
+            <input type="date" id="signup-dob" />
+            <p id="signup-dob-error-text" class="registration-error-text"></p>
+          </div>
+          <div class="signup-dob-gender-element-error-container">
+            <select id="signup-gender">
+              <option value=""></option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+            <p
+              id="signup-gender-error-text"
+              class="registration-error-text"
+            ></p>
+          </div>
+        </div>
+      </div>
+      <div class="registration-form-confirm-btn-panel">
+        <button id="signup-btn" type="button">Sign Up</button>
+      </div>
+      <div class="registration-form-bottom-panel">
+        <div class="registration-form-tag">
+          <a id="registration-form-login-tag">Login to an existing account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
