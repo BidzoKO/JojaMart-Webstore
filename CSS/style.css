@@ -20,25 +20,29 @@ body {
   background-position-x: center;
 }
 
-/*#region signIn*/
-.login-form {
+/*#region registrationForm*/
+#registration-form {
   position: absolute;
-  top : -150%;
   left: 50%;
-  visibility: hidden;
-  transform: translate(-50%, -50%) scale(1.25);
+  top: 50%;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
   background-color: white;
   width: 500px;
-  padding: 40px 20px;
+  padding: 40px 20px 30px 20px;
   box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.15);
   z-index: 10;
   border-radius: 0.4em;
 }
 
-.login-form.active {
-  top: 50%;
-  visibility: visible;
-  transform: translate(-50%, -50%) scale(1);
+#login-form.inactive{
+  display: none;
+  overflow: hidden;
+}
+
+#signup-form.inactive{
+  display: none;
+  overflow: hidden;
 }
 
 .close-btn {
@@ -56,36 +60,42 @@ body {
   user-select: none;
 }
 
-.login-prompt-text h2 {
+.registration-error-text{
+  font-size: 16px;
+  color: red;
+}
+
+.registration-form-text h2 {
   text-align: center;
   font-size: 25px;
   color: #222;
   margin-bottom: 20px;
 }
 
-.login-prompt-element {
-  margin: 35px 0px;
+.registration-form-element {
+  margin: 30px 0px;
   display: flex;
   flex-direction: column;
 }
 
-.login-prompt-element label {
+.registration-form-element label {
   margin-bottom: 15px;
 }
 
-.login-prompt-element input {
+.registration-form-element input,
+.registration-form-element select  {
   padding: 10px 10px;
   border-radius: 0.4em;
   border: #222 2px solid;
 }
 
-.login-prompt-confirm-btn {
+#login-form-confirm-btn-panel {
   display: flex;
   justify-content: center;
   margin-top: 30px;
 }
 
-.login-prompt-confirm-btn button {
+.registration-form-confirm-btn-panel button {
   padding: 10px 20px;
   background-color: #222;
   width: 100%;
@@ -95,17 +105,59 @@ body {
   cursor: pointer;
 }
 
+.registration-form-bottom-panel{
+  padding-top: 30px;
+}
+
+.registration-form-tag a{
+  color: #222;
+  font-size: 18px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.registration-form-tag a:hover{
+  border-bottom: 2px #222 solid;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+
 .disable-scroll {
   overflow: hidden;
 }
 
-/*#endregion  signIn*/
+/*signup elements--------------------------------------------------------------------*/
+
+#signup-form-elements-panel .registration-form-element{
+  margin: 20px 0px;
+}
+
+#signup-form-elements-panel .registration-form-element label{
+  margin-bottom: 10px;
+}
+
+#signup-dob-gender-element div{
+  display: flex;
+  justify-content: space-between;
+}
+
+#signup-gender{
+  padding: 10px 15px;
+}
+
+.signup-dob-gender-element-error-container{
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*#endregion  registrationForm*/
 /*#region header*/
 #header-region {
   width: 100%;
   height: 90px;
-  padding: 0 50px;
-  background-color: #c0c0c0;
+  padding: 0 70px;
+  background-color: hsl(208, 100%, 97%, 0.8);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -131,36 +183,38 @@ body {
 #header-nav-containter li {
   list-style-type: none;
   width: max-content;
+  cursor: pointer;
 }
 
 #header-nav-containter a {
-  padding: 8px 15px;
+  padding: 10px 15px;
   text-decoration: none;
   color: #333333;
   font-family: helvetica;
   font-size: 20px;
-  border-radius: 2em;
+  border-radius: 0.4em;
 }
 
 #header-nav-containter a:hover {
-  background-color: black;
+  background-color: hsl(221, 21%, 27%, 0.8);
   color: white;
 }
 
 #header-right-container {
-  flex-basis: 450px;
+  flex-basis: 435px;
   min-width: 200px;
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 10px;
 }
 
 #search-bar {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(231, 218, 135, 0.7);
+  background-color: #EDEAE0;
   height: 55px;
   width: 100%;
+  max-width: 350px;
   min-width: 150px;
   position: relative;
   padding: 10px 15px;
@@ -194,7 +248,7 @@ body {
   background-color: hsl(0, 0%, 100%);
 }
 
-.login-btn {
+.header-btn {
   display: inline-block;
   border: none;
   background: none;
@@ -206,6 +260,24 @@ body {
   text-align: left;
 }
 
+.header-btn p{
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #333333;
+  font-family: helvetica;
+  font-size: 20px;
+  border-radius: 0.4em;
+}
+
+.header-btn p:hover {
+  background-color: hsl(221, 21%, 27%, 0.8);
+  color: white;
+}
+
+#header-signout-btn p{
+  white-space: nowrap;
+}
+
 #header-login {
   width: auto;
   display: flex;
@@ -213,22 +285,17 @@ body {
   align-items: center;
 }
 
-#header-login p {
-  padding: 8px 10px;
-  border-radius: 1em;
-  text-decoration: none;
-  font-size: 20px;
-  color: black;
-  font-family: helvetica;
+#header-login-btn.Inactive{
+  display: none;
 }
 
-#header-login div {
-  width: auto;
+#header-logout-cart{
+  display: none;
+  gap: 5px;
 }
 
-#header-login p:hover {
-  background-color: rgba(109, 101, 101, 0.7);
-  color: white;
+#header-logout-cart.Active{
+  display: flex;
 }
 
 /*#endregion header*/
@@ -298,6 +365,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
 .limited-item-img {
   width: 4em;
 }

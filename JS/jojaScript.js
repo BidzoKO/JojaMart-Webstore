@@ -1,38 +1,27 @@
-const carousel = document.querySelector(".limited-items-container");
-const scrollArrows = document.querySelectorAll(".catalog-arrow");
-const popularItem = document.querySelector(".limited-offers-item");
-
-let popularItemWidth = (2 * popularItem.clientWidth) + 50;
-
-let scrollTimeOut = false;
-
-scrollArrows.forEach((icon) => {
-  icon.addEventListener("click", () => {
-    if (!scrollTimeOut) {
-      carousel.scrollLeft +=
-        icon.id == "arrow-left" ? -popularItemWidth : popularItemWidth;
-      scrollTimeOut = true;
-      setTimeout(() => {
-        scrollTimeOut = false;
-      }, 300);
-    }
-  });
-});
+EnableLimitedOffersScroll();
 
 // #region login
-const logInBtn = document.getElementById("header-login-btn");
 
-logInBtn.addEventListener("click", () => {
+CheckUserState();
+
+const loginBtn = document.getElementById("header-login-btn");
+const signoutBtn = document.getElementById("header-signout-btn");
+
+loginBtn.addEventListener("click", () => {
   console.log("login");
   assembleLoginForm();
 });
 
+signoutBtn.addEventListener("click", () => {
+  console.log("signout");
+  UserLogout();
+});
 
-const springStock = document.getElementById("header-nav-Spring")
-
+// for testing authorizatrion
+const springStock = document.getElementById("header-nav-spring");
 springStock.addEventListener("click", () => {
   console.log("spring clicked");
   GetUserById();
-})
+});
 
 // #endregion login

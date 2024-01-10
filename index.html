@@ -9,6 +9,7 @@
     <script src="JS/jojaApi.js" defer></script>
     <script src="JS/jojaScript.js" defer></script>
     <script src="JS/htmlAssembler.js"></script>
+    <script src="JS/functionLibrary.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,7 +20,7 @@
   </head>
   <body>
     <!--login form-->
-    <div class="login-form-container" id="login-form-container-id">
+    <div id="registration-form-container">
       <!--login html-->
     </div>
     <!--header-->
@@ -28,11 +29,11 @@
         <img src="JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo" />
       </div>
       <div id="header-nav-containter">
-        <ul>
-          <li><a id="header-nav-Permanent" href="">Permanent Stock</a></li>
-          <li><a id="header-nav-Fall" href="">Fall Stock</a></li>
-          <li><a id="header-nav-Summer" href="">Summer Stock</a></li>
-          <li><a id="header-nav-Spring" >Spring Stock</a></li>
+        <ul class="header-btn">
+          <li class="header-btn"><a id="header-nav-permanent">Permanent Stock</a></li>
+          <li class="header-btn"><a id="header-nav-fall">Fall Stock</a></li>
+          <li class="header-btn"><a id="header-nav-summer">Summer Stock</a></li>
+          <li class="header-btn"><a id="header-nav-spring">Spring Stock</a></li>
         </ul>
       </div>
       <div id="header-right-container">
@@ -43,7 +44,15 @@
           </div>
         </div>
         <div id="header-login">
-          <button class="login-btn" id="header-login-btn">
+          <div id="header-logout-cart">
+            <button class="header-btn" id="header-signout-btn">
+              <p>Sign Out</p>
+            </button>
+            <button class="header-btn" id="header-cart-btn">
+              <p>Cart</p>
+            </button>
+          </div>
+          <button class="header-btn" id="header-login-btn">
             <p>Login</p>
           </button>
         </div>

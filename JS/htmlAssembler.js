@@ -1,43 +1,59 @@
-function disableScroll() {
-  let scrollY = window.scrollY;
-  let scrollX = window.scrollX;
+// dont know
+function loginValidation() {}
 
-  window.onscroll = function () {
-    window.scrollTo(scrollX, scrollY);
-  };
-}
-
-function enableScroll() {
-  window.onscroll = function () {};
-}
-
-function loginValidation(){
-
-}
 
 function assembleLoginForm() {
-  fetch("./HTML/IndexPage/login.html")
+  fetch("./HTML/IndexPage/registrationForm.html")
     .then((response) => response.text())
     .then((html) => {
-      document.getElementById("login-form-container-id").innerHTML = html;
+      document.getElementById("registration-form-container").innerHTML = html;
 
-      const loginForm = document.getElementById("simple-login-form");
-      const closeLoginBtn = document.getElementById("close-login-form-btn");
-      const signInBtn = document.getElementById("signin-btn");
+      const closeLoginBtn = document.getElementById(
+        "close-registration-form-btn"
+      );
+      const signinForm = document.getElementById("login-form");
+      const signinBtn = document.getElementById("signin-btn");
+      const signupForm = document.getElementById("signup-form");
+      const signupBtn = document.getElementById("signup-btn");
+      const signupTag = document.getElementById("registration-form-signup-tag");
+      const logingTag = document.getElementById("registration-form-login-tag");
 
-      loginForm.classList.add("active");
       disableScroll();
 
-      closeLoginBtn.addEventListener("click", () => {
-        enableScroll();
-        document.getElementById("login-form-container-id").innerHTML =
-          "<!--login html-->";
+      signupForm.classList.add("inactive");
+
+      // switch from login form to signup form
+      signupTag.addEventListener("click", () => {
+        signupForm.classList.remove("inactive");
+        signinForm.classList.add("inactive");
+        ClearRegistrationForm();
       });
 
-      signInBtn.addEventListener("click", () => {
-        console.log("SignInStarted");
+      // switch from signup form to login form
+      logingTag.addEventListener("click", () => {
+        signinForm.classList.remove("inactive");
+        signupForm.classList.add("inactive");
+        ClearRegistrationForm();
+      });
+
+      // configure the top right 'x' to close the registration form
+      closeLoginBtn.addEventListener("click", () => {
+        enableScroll();
+        document.getElementById("registration-form-container").innerHTML =
+          "<!--registration html-->";
+      });
+
+      // signin api call
+      signinBtn.addEventListener("click", () => {
         UserLogIn();
       });
+
+      // signup api call
+      signupBtn.addEventListener("click", () => {        
+        CreateNewUser();
+      })
     })
-    .catch((error) => console.error("Error fetching login.html:", error));
+    .catch((error) =>
+      console.error("Error fetching registrationForm.html:", error)
+    );
 }
