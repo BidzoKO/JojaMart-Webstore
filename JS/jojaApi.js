@@ -137,3 +137,74 @@ async function UserLogout() {
     configureUIForAuth(false);
   }
 }
+
+// ----------------------------------
+// static information section
+
+async function GetLimitedTimeItems() {
+  const response = await fetch("https://localhost:7177/Product/getLimitedTimeItems", {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  const productList = await response.json();
+
+  InsertLimitedItems(productList);
+
+  EnableLimitedOffersScroll();
+}
+
+async function GetPopularItems() {
+  const response = await fetch("https://localhost:7177/Product/getPopularItems", {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  const productList = await response.json();
+
+  for (let i = 0; i < 8; i++) {
+    InsertPopularItems(productList[i]); 
+  }
+
+}
+
+async function GetProductByName(product) {
+  const response = await fetch("https://localhost:7177/Product/getProductByName", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(product),
+  });
+
+  const productItem = await response.json();
+
+  console.log(productItem);
+  
+  return(productItem);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

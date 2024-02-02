@@ -1,4 +1,4 @@
-EnableLimitedOffersScroll();
+StartupApiCalls();
 
 // #region login
 

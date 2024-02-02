@@ -1,6 +1,3 @@
-// dont know
-function loginValidation() {}
-
 
 function assembleLoginForm() {
   fetch("./HTML/IndexPage/registrationForm.html")
@@ -56,4 +53,10 @@ function assembleLoginForm() {
     .catch((error) =>
       console.error("Error fetching registrationForm.html:", error)
     );
+}
+
+function insertLimitedItem() {
+  const itemContainer = document.getElementById("limited-items-container-id");
+
+  itemContainer
 }

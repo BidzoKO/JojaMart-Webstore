@@ -13,7 +13,7 @@ function enableScroll() {
   window.onscroll = function () {};
 }
 
-//Checks and formats user data for serverside
+// Checks and formats user data for serverside
 function assembleUserForCreation() {
   const userFullname = document.querySelector("#signup-fullname").value;
   const userUsername = document.querySelector("#signup-username").value;
@@ -216,6 +216,7 @@ function configureUIForAuth(loginState) {
   }
 }
 
+// 
 function CheckUserState() {
   const accessToken = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");
@@ -227,11 +228,11 @@ function CheckUserState() {
   }
 }
 
-// enables the limited time offers scrolling
+// enables the limited time items scrolling
 function EnableLimitedOffersScroll() {
-  const carousel = document.querySelector(".limited-items-container");
+  const carousel = document.querySelector(".limited-items-content");
   const scrollArrows = document.querySelectorAll(".catalog-arrow");
-  const popularItem = document.querySelector(".limited-offers-item");
+  const popularItem = document.querySelector(".limited-items-item");
 
   let popularItemWidth = 2 * popularItem.clientWidth + 50;
 
@@ -249,4 +250,130 @@ function EnableLimitedOffersScroll() {
       }
     });
   });
+}
+
+// 
+function InsertLimitedItems(items) {
+  const itemContainer = document.getElementById("limited-items-content-id")
+  itemContainer.addEventListener('click', (event) => {
+    var clickedItem = event.target.closest('.limited-items-item');
+
+    if (clickedItem) {
+        console.log(clickedItem.querySelector('.limited-item-desc h2').textContent);
+        ItemOverview(clickedItem.querySelector('.limited-item-desc h2').textContent);
+      }
+  })
+  items.forEach(item => {
+    itemContainer.innerHTML += (
+      `
+      <div class="limited-items-item">
+        <div class="limited-item-content">
+          <div class="limited-item-img-container">
+            <img src="${item.imageUrl}" alt="" class="limited-item-img" />
+          </div>
+          <div class="limited-item-desc">
+            <h2>${item.productName}</h2>
+          </div>
+          <div class="limited-item-price">
+            <h4>Price: ${item.price}</h4>
+            <img src="/JojaMart_files/element_icons/18px-Gold.png" alt="" />
+          </div>
+        </div>
+      </div>
+      `
+    )
+  });
+  
+}
+
+// 
+function InsertPopularItems(item){
+  const itemContainer = document.getElementById("popular-item-container")
+  itemContainer.innerHTML += (
+    `
+    <div class="popular-item">
+    <div class="popular-item-img-container">
+      <img src="${item.imageUrl}" alt="" />
+    </div>
+    <div class="popular-item-desc">
+      <h2>${item.productName}</h2>
+    </div>
+    <div class="popular-item-price">
+      <h4>Price: ${item.price}</h4>
+      <img src="/JojaMart_files/element_icons/18px-Gold.png" alt="" />
+    </div>
+  </div>
+    `
+  )
+}
+
+// calls all the apis and functions that need executing at page startup
+function StartupApiCalls() {
+  GetLimitedTimeItems()
+  GetPopularItems()
+}
+
+
+async function ItemOverview(itemName) {
+
+  let product = await GetProductByName(itemName);
+  console.log("product: " + product);
+
+  const itemExpandContainer = document.getElementById("item-expand-section");
+
+  itemExpandContainer.innerHTML = (
+    `
+   <div id="item-expand-container">
+      <div id="item-expand-close-btn" class="close-btn">&times;</div>
+      <div id="item-expand-grid">
+        <div id="item-expand-image-container">
+          <img src="${product.imageUrl}" alt="">
+        </div>
+        <div id="item-expand-name-container">
+          <h2>${product.productName}</h2>
+        </div>
+        <div id="item-expand-description-container">
+          <h3>${product.description}</h3>
+        </div>
+        <div id="item-expand-tools-container">
+          <div id="item-expand-price"><h4>Price: ${product.price}</h4></div>
+          <div id="item-expand-add-to-cart-container">
+            <div id="item-expand-add-btn-container">
+              <button class="item-expand-amount-btn" id="item-expand-add-btn">+</button>
+              <input type="number" id="item-expand-amount-input">
+              <button class="item-expand-amount-btn" id="item-expand-subtract-btn">-</button>
+            </div>
+            <button id="item-expand-to-cart-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `
+  )
+
+  const productQuantity = document.getElementById("item-expand-amount-input");
+
+  productQuantity.addEventListener('input', (event) => {
+    if (+productQuantity.value < 0){
+      productQuantity.value = 0;
+    }
+  })
+
+
+  productQuantity.value = 0;
+
+  document.getElementById("item-expand-subtract-btn").addEventListener('click', (event) => {
+    if(productQuantity.value > 0){          
+      productQuantity.value = parseInt(productQuantity.value) - 1;
+    }
+  });
+
+  document.getElementById("item-expand-add-btn").addEventListener('click', (event) => {
+    productQuantity.value = parseInt(productQuantity.value) + 1;
+  });
+
+  document.getElementById("item-expand-close-btn").addEventListener('click', (event) => {
+    itemExpandContainer.innerHTML = '';
+  });
+
 }
