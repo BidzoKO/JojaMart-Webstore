@@ -1,10 +1,7 @@
-// gets all users, only for development purposes
-fetch("https://localhost:7177/User/GetAllUsers")
-  .then((res) => res.json())
-  .then((data) => console.log(data));
+import * as functionLibrary from './functionLibrary.js';
 
 // user signin POST method
-async function UserLogIn() {
+export async function UserLogIn() {
   const userEmail = document.querySelector("#login-email");
   const userPassword = document.querySelector("#login-password");
 
@@ -30,30 +27,33 @@ async function UserLogIn() {
       console.log(data);
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
-      configureUIForAuth(true);
+      functionLibrary.enableScroll();
+      functionLibrary.configureUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
-          "<!--registration html-->";
+        "<!--registration html-->";
     })
     .catch((error) => console.log("Error widh data"));
 }
 
 // only for testing needs changing
-async function GetUserById() {
+export async function GetUserById() {
   const userId = 10;
   const apiEndpoint = `https://localhost:7177/User/GetuserById?Id=${userId}`;
 
   let apiOptions = {
     method: "GET",
   };
-
-  const data = await MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
-
-  console.log(data);
+  try {
+    const data = await functionLibrary.MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
+    console.log(data);
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 // creates a new user by signing up
-function CreateNewUser() {
-  const userObject = assembleUserForCreation();
+export function CreateNewUser() {
+  const userObject = functionLibrary.assembleUserForCreation();
 
   if (userObject == null) {
     return console.log("signup user object incomplete");
@@ -70,7 +70,7 @@ function CreateNewUser() {
       if (res.ok) {
         console.log("fetch result valid");
       } else {
-        throw new Error ("fetch result error")
+        throw new Error("fetch result error");
       }
       return res.json();
     })
@@ -78,15 +78,15 @@ function CreateNewUser() {
       console.log(data);
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
-      configureUIForAuth(true);
+      functionLibrary.configureUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
-          "<!--registration html-->";
+        "<!--registration html-->";
     })
     .catch((error) => console.log(error));
 }
 
 // user reauthentication api call for when access token is
-async function ReauthenticateUser() {
+export async function ReauthenticateUser() {
   const refreshToken = Cookies.get("refreshToken");
 
   try {
@@ -122,89 +122,76 @@ async function ReauthenticateUser() {
 }
 
 // logout deletes JWTs
-async function UserLogout() {
+export async function UserLogout() {
   const apiEndpoint = "https://localhost:7177/User/Logout";
 
   let apiOptions = {
     method: "DELETE",
   };
 
-  const data = await MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
+  const data = await functionLibrary.MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
 
-  if (data){
+  if (data) {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
-    configureUIForAuth(false);
+    functionLibrary.configureUIForAuth(false);
   }
 }
 
 // ----------------------------------
 // static information section
 
-async function GetLimitedTimeItems() {
-  const response = await fetch("https://localhost:7177/Product/getLimitedTimeItems", {
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+export async function GetLimitedTimeItems() {
+  const response = await fetch(
+    "https://localhost:7177/Product/getLimitedTimeItems",
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
 
   const productList = await response.json();
 
-  InsertLimitedItems(productList);
+  functionLibrary.InsertLimitedItems(productList);
 
-  EnableLimitedOffersScroll();
+  functionLibrary.EnableLimitedOffersScroll();
 }
 
-async function GetPopularItems() {
-  const response = await fetch("https://localhost:7177/Product/getPopularItems", {
-    method: "GET",
-    headers: {
-      "content-type": "application/json",
-    },
-  });
+export async function GetPopularItems() {
+  const response = await fetch(
+    "https://localhost:7177/Product/getPopularItems",
+    {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    }
+  );
 
   const productList = await response.json();
 
   for (let i = 0; i < 8; i++) {
-    InsertPopularItems(productList[i]); 
+    functionLibrary.InsertPopularItem(productList[i]);
   }
-
 }
 
-async function GetProductByName(product) {
-  const response = await fetch("https://localhost:7177/Product/getProductByName", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-    },
-    body: JSON.stringify(product),
-  });
+export async function GetProductByName(product) {
+  const response = await fetch(
+    "https://localhost:7177/Product/getProductByName",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(product),
+    }
+  );
 
   const productItem = await response.json();
 
   console.log(productItem);
-  
-  return(productItem);
+
+  return productItem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

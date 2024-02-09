@@ -1,6 +1,8 @@
+import * as functionLibrary from './functionLibrary.js';
+import * as Api from "./jojaApi.js";
 
-function assembleLoginForm() {
-  fetch("./HTML/IndexPage/registrationForm.html")
+export function assembleLoginForm() {
+  fetch("./HTML/templates/registrationForm.html")
     .then((response) => response.text())
     .then((html) => {
       document.getElementById("registration-form-container").innerHTML = html;
@@ -15,7 +17,7 @@ function assembleLoginForm() {
       const signupTag = document.getElementById("registration-form-signup-tag");
       const logingTag = document.getElementById("registration-form-login-tag");
 
-      disableScroll();
+      functionLibrary.disableScroll();
 
       signupForm.classList.add("inactive");
 
@@ -23,40 +25,93 @@ function assembleLoginForm() {
       signupTag.addEventListener("click", () => {
         signupForm.classList.remove("inactive");
         signinForm.classList.add("inactive");
-        ClearRegistrationForm();
+        functionLibrary.ClearRegistrationForm();
       });
 
       // switch from signup form to login form
       logingTag.addEventListener("click", () => {
         signinForm.classList.remove("inactive");
         signupForm.classList.add("inactive");
-        ClearRegistrationForm();
+        functionLibrary.ClearRegistrationForm();
       });
 
       // configure the top right 'x' to close the registration form
       closeLoginBtn.addEventListener("click", () => {
-        enableScroll();
+        functionLibrary.enableScroll();
         document.getElementById("registration-form-container").innerHTML =
           "<!--registration html-->";
       });
 
       // signin api call
       signinBtn.addEventListener("click", () => {
-        UserLogIn();
+        Api.UserLogIn();
       });
 
       // signup api call
-      signupBtn.addEventListener("click", () => {        
-        CreateNewUser();
-      })
+      signupBtn.addEventListener("click", () => {
+        Api.CreateNewUser();
+      });
     })
     .catch((error) =>
       console.error("Error fetching registrationForm.html:", error)
     );
 }
 
-function insertLimitedItem() {
+export function insertLimitedItem() {
   const itemContainer = document.getElementById("limited-items-container-id");
 
-  itemContainer
+  itemContainer;
 }
+
+export async function ItemOverview(itemName) {
+  let product = await Api.GetProductByName(itemName);
+
+  const itemExpandContainer = document.getElementById("item-expand-section");
+
+  fetch("./HTML/templates/itemExpand.html")
+    .then((response) => response.text())
+    .then((html) => {
+      const processedHTML = html
+        .replace(/\$\{product\.imageUrl\}/, product.imageUrl)
+        .replace(/\$\{product\.productName\}/, product.productName)
+        .replace(/\$\{product\.description\}/, product.description)
+        .replace(/\$\{product\.price\}/, product.price);
+
+      itemExpandContainer.innerHTML = processedHTML;
+
+      const productQuantity = document.getElementById(
+        "item-expand-amount-input"
+      );
+
+      productQuantity.addEventListener("input", (event) => {
+        if (+productQuantity.value < 0) {
+          productQuantity.value = 0;
+        }
+      });
+
+      productQuantity.value = 0;
+
+      document
+        .getElementById("item-expand-subtract-btn")
+        .addEventListener("click", () => {
+          if (productQuantity.value > 0) {
+            productQuantity.value = parseInt(productQuantity.value) - 1;
+          }
+        });
+
+      document
+        .getElementById("item-expand-add-btn")
+        .addEventListener("click", () => {
+          productQuantity.value = parseInt(productQuantity.value) + 1;
+          expandedWindow.classList.add("active");
+        });
+
+      document
+        .getElementById("item-expand-close-btn")
+        .addEventListener("click", () => {
+          itemExpandContainer.innerHTML = "";
+          console.log("close");
+        });
+    });
+}
+

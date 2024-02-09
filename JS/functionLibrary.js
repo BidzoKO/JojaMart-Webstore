@@ -1,5 +1,8 @@
+import * as Api from './jojaApi.js';
+import * as assembler from './htmlAssembler.js';
+
 // disables scroll for registration form
-function disableScroll() {
+export function disableScroll() {
   let scrollY = window.scrollY;
   let scrollX = window.scrollX;
 
@@ -9,12 +12,12 @@ function disableScroll() {
 }
 
 // enables scroll on closing the registrations form
-function enableScroll() {
+export function enableScroll() {
   window.onscroll = function () {};
 }
 
 // Checks and formats user data for serverside
-function assembleUserForCreation() {
+export function assembleUserForCreation() {
   const userFullname = document.querySelector("#signup-fullname").value;
   const userUsername = document.querySelector("#signup-username").value;
   const userEmail = document.querySelector("#signup-email").value;
@@ -140,7 +143,7 @@ function assembleUserForCreation() {
 }
 
 // clears the fields in the registration form when switching between login and regsitration
-function ClearRegistrationForm() {
+export function ClearRegistrationForm() {
   // login fields
   const loginEmailField = document.getElementById("login-email");
   const loginPasswordField = document.getElementById("login-password");
@@ -163,10 +166,13 @@ function ClearRegistrationForm() {
 }
 
 // used with authorized api, if access token is expired will call reauthentication endpoint and retry the original api call
-async function MakeAuthenticatedAPICall(apiEndpoint, options) {
+export async function MakeAuthenticatedAPICall(apiEndpoint, options) {
   try {
     let accessToken = Cookies.get("accessToken");
 
+    if (accessToken == undefined || accessToken == null){
+      throw new Error("access token missing");
+    }
     const response = await fetch(apiEndpoint, {
       ...options,
       headers: {
@@ -184,7 +190,7 @@ async function MakeAuthenticatedAPICall(apiEndpoint, options) {
       }
       return response.json();
     } else if (response.status === 401) {
-      newAccessToken = await ReauthenticateUser();
+      newAccessToken = await Api.ReauthenticateUser();
       if (newAccessToken) {
         console.log(
           "Reauthentication successful. Retrying the original API call."
@@ -197,27 +203,28 @@ async function MakeAuthenticatedAPICall(apiEndpoint, options) {
       throw new Error(`API request failed with status: ${response.status}`);
     }
   } catch (error) {
-    console.error("Error:", error);
+    console.error(error);
     throw error;
   }
 }
 
 // configures page UI depending on if the user is authenticated. takes in true or false
-function configureUIForAuth(loginState) {
-  const logoutAndCart = document.getElementById("header-logout-cart");
+export function configureUIForAuth(loginState) {
+  const accountAndCart = document.getElementById("header-Account-cart");
   const loginBtn = document.getElementById("header-login-btn");
+  const accountBtn = document.getElementById("header-Account-btn");
 
   if (loginState) {
     loginBtn.classList.add("Inactive");
-    logoutAndCart.classList.add("Active");
+    accountAndCart.classList.add("Active");
   } else if (!loginState) {
     loginBtn.classList.remove("Inactive");
-    logoutAndCart.classList.remove("Active");
+    accountAndCart.classList.remove("Active");
   }
 }
 
-// 
-function CheckUserState() {
+// is user loged in or not
+export function CheckUserState() {
   const accessToken = Cookies.get("accessToken");
   const refreshToken = Cookies.get("refreshToken");
 
@@ -229,7 +236,7 @@ function CheckUserState() {
 }
 
 // enables the limited time items scrolling
-function EnableLimitedOffersScroll() {
+export function EnableLimitedOffersScroll() {
   const carousel = document.querySelector(".limited-items-content");
   const scrollArrows = document.querySelectorAll(".catalog-arrow");
   const popularItem = document.querySelector(".limited-items-item");
@@ -252,20 +259,23 @@ function EnableLimitedOffersScroll() {
   });
 }
 
-// 
-function InsertLimitedItems(items) {
-  const itemContainer = document.getElementById("limited-items-content-id")
-  itemContainer.addEventListener('click', (event) => {
-    var clickedItem = event.target.closest('.limited-items-item');
+//
+export function InsertLimitedItems(items) {
+  const itemContainer = document.getElementById("limited-items-content-id");
+  itemContainer.addEventListener("click", (event) => {
+    var clickedItem = event.target.closest(".limited-items-item");
 
     if (clickedItem) {
-        console.log(clickedItem.querySelector('.limited-item-desc h2').textContent);
-        ItemOverview(clickedItem.querySelector('.limited-item-desc h2').textContent);
-      }
-  })
-  items.forEach(item => {
-    itemContainer.innerHTML += (
-      `
+      console.log(
+        clickedItem.querySelector(".limited-item-desc h2").textContent
+      );
+      assembler.ItemOverview(
+        clickedItem.querySelector(".limited-item-desc h2").textContent
+      );
+    }
+  });
+  items.forEach((item) => {
+    itemContainer.innerHTML += `
       <div class="limited-items-item">
         <div class="limited-item-content">
           <div class="limited-item-img-container">
@@ -280,17 +290,14 @@ function InsertLimitedItems(items) {
           </div>
         </div>
       </div>
-      `
-    )
+      `;
   });
-  
 }
 
-// 
-function InsertPopularItems(item){
-  const itemContainer = document.getElementById("popular-item-container")
-  itemContainer.innerHTML += (
-    `
+//
+export function InsertPopularItem(item) {
+  const itemContainer = document.getElementById("popular-item-container");
+  itemContainer.innerHTML += `
     <div class="popular-item">
     <div class="popular-item-img-container">
       <img src="${item.imageUrl}" alt="" />
@@ -303,77 +310,11 @@ function InsertPopularItems(item){
       <img src="/JojaMart_files/element_icons/18px-Gold.png" alt="" />
     </div>
   </div>
-    `
-  )
+    `;
 }
 
 // calls all the apis and functions that need executing at page startup
-function StartupApiCalls() {
-  GetLimitedTimeItems()
-  GetPopularItems()
-}
-
-
-async function ItemOverview(itemName) {
-
-  let product = await GetProductByName(itemName);
-  console.log("product: " + product);
-
-  const itemExpandContainer = document.getElementById("item-expand-section");
-
-  itemExpandContainer.innerHTML = (
-    `
-   <div id="item-expand-container">
-      <div id="item-expand-close-btn" class="close-btn">&times;</div>
-      <div id="item-expand-grid">
-        <div id="item-expand-image-container">
-          <img src="${product.imageUrl}" alt="">
-        </div>
-        <div id="item-expand-name-container">
-          <h2>${product.productName}</h2>
-        </div>
-        <div id="item-expand-description-container">
-          <h3>${product.description}</h3>
-        </div>
-        <div id="item-expand-tools-container">
-          <div id="item-expand-price"><h4>Price: ${product.price}</h4></div>
-          <div id="item-expand-add-to-cart-container">
-            <div id="item-expand-add-btn-container">
-              <button class="item-expand-amount-btn" id="item-expand-add-btn">+</button>
-              <input type="number" id="item-expand-amount-input">
-              <button class="item-expand-amount-btn" id="item-expand-subtract-btn">-</button>
-            </div>
-            <button id="item-expand-to-cart-btn">Add to cart</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    `
-  )
-
-  const productQuantity = document.getElementById("item-expand-amount-input");
-
-  productQuantity.addEventListener('input', (event) => {
-    if (+productQuantity.value < 0){
-      productQuantity.value = 0;
-    }
-  })
-
-
-  productQuantity.value = 0;
-
-  document.getElementById("item-expand-subtract-btn").addEventListener('click', (event) => {
-    if(productQuantity.value > 0){          
-      productQuantity.value = parseInt(productQuantity.value) - 1;
-    }
-  });
-
-  document.getElementById("item-expand-add-btn").addEventListener('click', (event) => {
-    productQuantity.value = parseInt(productQuantity.value) + 1;
-  });
-
-  document.getElementById("item-expand-close-btn").addEventListener('click', (event) => {
-    itemExpandContainer.innerHTML = '';
-  });
-
+export function StartupApiCalls() {
+  Api.GetLimitedTimeItems();
+  Api.GetPopularItems();
 }
