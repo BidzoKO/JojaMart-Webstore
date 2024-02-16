@@ -167,6 +167,7 @@ body {
   width: 200px;
   height: auto;
   display: block;
+  cursor: pointer;
 }
 
 #header-nav-containter {
@@ -204,8 +205,7 @@ body {
   flex-basis: 485px;
   min-width: 200px;
   display: flex;
-  justify-content: center;
-  gap: 40px;
+  gap: 35px;
 }
 
 #search-bar {
@@ -214,11 +214,12 @@ body {
   background-color: #edeae0;
   height: 55px;
   width: 100%;
-  max-width: 350px;
+  max-width: 270px;
   min-width: 150px;
   position: relative;
   padding: 10px 15px;
   border-radius: 2em;
+  left: 0px;
 }
 
 #search-bar input {
@@ -284,6 +285,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: auto;
 }
 
 #header-login-btn.Inactive {
@@ -293,6 +295,7 @@ body {
 #header-Account-cart {
   display: none;
   gap: 5px;
+  margi
 }
 
 #header-Account-cart.Active {
@@ -699,6 +702,15 @@ input::-webkit-inner-spin-button {
 /*#endregion seperate*/
 /*#region account*/
 
+#account-header-Account-cart {
+  gap: 10px;
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
 #account-body {
   width: 100%;
   height: auto;
@@ -717,53 +729,93 @@ input::-webkit-inner-spin-button {
 }
 
 #account-body-content {
+  border: 12px transparent solid;
+  border-image: url(/JojaMart_files/border_img/border-border.png) 15 stretch;
   display: grid;
   height: 700px;
-  background-color: grey;
+  background-color: rgba(255, 255, 255, 0.616);
   gap: 5px;
   grid-template-columns: 2fr 5fr;
-  grid-template-rows: 2fr 5fr;
+  grid-template-rows: 3fr 6fr;
 }
 
-#account-image-container{
+#account-identity-block {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
 }
 
-#account-image-container img{
- width: 140px;
- height: 140px;
- border-radius: 2em;
+#account-identity-block img {
+  width: 140px;
+  height: 140px;
+  border-radius: 2em;
 }
 
-#account-image-border{
+#account-identity-image {
   overflow: hidden;
   border-radius: 100em;
   background-color: white;
 }
 
-#account-nav-container{
+#account-nav-container {
   grid-row: 2/3;
+  display: flex;
+  padding-left: 30px;
 }
 
-#account-nav-content-box{
-  grid-row: 2/3;
+#account-nav-container ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+}
+
+#account-nav-container li {
+  padding: 15px 0px 15px 40px;
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  gap: 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#account-nav-container li:hover {
+  background-color: rgba(218, 82, 4, 0.699);
+  transition: ease-in 0.2s;
+}
+
+#account-nav-container img {
+  width: 24px;
+  height: 24px;
+}
+
+.account-nav-divider-line {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 0.5em;
+}
+
+#account-nav-content-box {
+  grid-row: 1/3;
   grid-column: 2/3;
+  padding: 50px;
+  padding-top: 100px;
 }
 
-#account-name-container{
+#account-identity-name-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#account-name-container h4{
+#account-identity-name-container h4 {
   font-size: 26px;
 }
 
-#account-name-container button{
+#account-identity-name-container button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -772,13 +824,56 @@ input::-webkit-inner-spin-button {
   width: min-content;
 }
 
+#account-nav-content-box {
+  display: flex;
+}
 
 
+/*orders*/
 
 
+#account-nav-orders-content-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 50px;
+}
+
+#orders-table-title-container {
+  text-align: center;
+  font-size: 32px;
+}
+
+#orders-table-title-container h2 {
+  font-size: 32px;
+}
+
+#acc-orders-table-container {
+  border: 1px solid grey;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.767);
+}
+
+#acc-orders-table-container table{
+
+  width: 100%;
+}
+
+#acc-orders-table-container table, tr, th {
+
+}
 
 
+/*logout*/
 
 
+#account-nav-logout-box {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: 50px;
+  gap: 20px;
+}
 
 /*#endregion account*/

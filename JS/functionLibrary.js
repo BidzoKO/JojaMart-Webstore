@@ -1,5 +1,5 @@
-import * as Api from './jojaApi.js';
-import * as assembler from './htmlAssembler.js';
+import * as Api from "./jojaApi.js";
+import * as assembler from "./htmlAssembler.js";
 
 // disables scroll for registration form
 export function disableScroll() {
@@ -170,17 +170,17 @@ export async function MakeAuthenticatedAPICall(apiEndpoint, options) {
   try {
     let accessToken = Cookies.get("accessToken");
 
-    if (accessToken == undefined || accessToken == null){
+    if (accessToken == undefined || accessToken == null) {
       throw new Error("access token missing");
     }
     const response = await fetch(apiEndpoint, {
-      ...options,
       headers: {
         ...options.headers,
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
       credentials: "include",
+      ...options,
     });
 
     if (response.ok) {
@@ -209,7 +209,7 @@ export async function MakeAuthenticatedAPICall(apiEndpoint, options) {
 }
 
 // configures page UI depending on if the user is authenticated. takes in true or false
-export function configureUIForAuth(loginState) {
+export function configureIndexUIForAuth(loginState) {
   const accountAndCart = document.getElementById("header-Account-cart");
   const loginBtn = document.getElementById("header-login-btn");
   const accountBtn = document.getElementById("header-Account-btn");
@@ -229,9 +229,9 @@ export function CheckUserState() {
   const refreshToken = Cookies.get("refreshToken");
 
   if ((accessToken != null) & (refreshToken != null)) {
-    configureUIForAuth(true);
+    configureIndexUIForAuth(true);
   } else {
-    configureUIForAuth(false);
+    configureIndexUIForAuth(false);
   }
 }
 
@@ -317,4 +317,114 @@ export function InsertPopularItem(item) {
 export function StartupApiCalls() {
   Api.GetLimitedTimeItems();
   Api.GetPopularItems();
+}
+
+//-----------------------------------------------accound page-------------------------------------------------//
+
+export function AccountMain() {
+  SetAccountPageIdentity();
+  AccountNavListeners();
+  AccountPageListeners();
+}
+
+function AccountNavListeners() {
+  const accNavContainer = document.getElementById("account-nav-container");
+
+  accNavContainer.addEventListener("click", function (event) {
+    if (event.target.nodeName === "LI") {
+      const content = event.target.dataset.content;
+
+      switch (content) {
+        case "dashboard":
+          NavToDashboard();
+          break;
+        case "orders":
+          NavToOrders();
+          break;
+        case "information":
+          NavToInformation();
+          break;
+        case "details":
+          NavToDetails();
+          break;
+        case "logout":
+          AccPageLogoutPrompt();
+          break;
+      }
+    }
+  });
+}
+
+function NavToDashboard() {
+  console.log("navigating the content to dashboard");
+  const dashboardContent = document.getElementById("account-nav-content-box");
+
+  dashboardContent.innerHTML = `
+  <div id="accound-dashboard-container">
+    <div id="account-dashboard-content">
+      <h3>Hello ${name} (not ${name}? <a href="">log out</a>)<br><br></h3>
+      From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and edit your password and account details.</h3>
+    </div>
+  </div>
+  `;
+}
+
+function NavToOrders() {
+  console.log("navigating the content to dashboard");
+  const dashboardContent = document.getElementById("account-nav-content-box");
+
+  dashboardContent.innerHTML = `
+  `;
+}
+
+function NavToInformation() {
+  console.log("navigating the content to dashboard");
+  const dashboardContent = document.getElementById("account-nav-content-box");
+
+  dashboardContent.innerHTML = `
+  `;
+}
+
+function NavToDetails() {
+  console.log("navigating the content to dashboard");
+  const dashboardContent = document.getElementById("account-nav-content-box");
+
+  dashboardContent.innerHTML = `
+  `;
+}
+
+function AccPageLogoutPrompt() {
+  console.log("navigating the content to dashboard");
+  const dashboardContent = document.getElementById("account-nav-content-box");
+
+  dashboardContent.innerHTML = `
+  <div id="account-nav-logout-box">
+    <h3>do you want to logout?<a href="">   Logout</a></h3>
+    <h3>deactivate your account?<a href="">   Deactivate</a></h3>
+    <h3>delete your acount?<a href="">   Delete </a></h3>
+  </div>
+  `;
+}
+
+function AccountPageListeners() {
+  const accountIdentityLogout = document.getElementById(
+    "account-identity-logout"
+  );
+  accountIdentityLogout.addEventListener("click", () => {
+    Api.UserLogout();
+    console.log("loged out");
+  });
+}
+
+async function SetAccountPageIdentity(){
+
+  const userIdentity = await Api.GetUseridentity()
+
+  localStorage.setItem('userIdentity', JSON.stringify(userIdentity));
+
+  const userName = localStorage.getItem('userIdentity');
+
+  const storedUserIdentity = JSON.parse(userName)
+
+  console.log(storedUserIdentity);
 }

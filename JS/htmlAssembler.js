@@ -83,9 +83,21 @@ export async function ItemOverview(itemName) {
         "item-expand-amount-input"
       );
 
+      let previousValue = '';
       productQuantity.addEventListener("input", (event) => {
-        if (+productQuantity.value < 0) {
-          productQuantity.value = 0;
+        event.target.value = event.target.value.replace(/\D/g, '');
+        let currentValue = event.target.value;
+    
+        currentValue = currentValue.replace(/^0+(?=\d)/, '');
+        event.target.value = currentValue;
+
+        // Check if the current value is a valid non-negative integer
+        if (!/^\d*$/.test(currentValue) || parseInt(currentValue) < 0 || parseInt(currentValue) > 9999) {
+            // If the current value is invalid, revert it to the previous value
+            event.target.value = previousValue;
+        } else {
+            // Update the previous value if the current value is valid
+            previousValue = currentValue;
         }
       });
 
@@ -102,8 +114,9 @@ export async function ItemOverview(itemName) {
       document
         .getElementById("item-expand-add-btn")
         .addEventListener("click", () => {
+          if(productQuantity.value < 9999){
           productQuantity.value = parseInt(productQuantity.value) + 1;
-          expandedWindow.classList.add("active");
+          }
         });
 
       document

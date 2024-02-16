@@ -6,7 +6,7 @@
     <title>JojaMart Webstore</title>
     <link rel="stylesheet" href="CSS/style.css" />
     <link rel="icon" href="JojaMart_files/Logo/Joja_Cola.png" />
-    <script src="JS/main/index.js" type="Module" ></script>
+    <script src="JS/main/index.js" type="Module"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,7 +23,9 @@
     <!--header-->
     <header id="header-region">
       <div id="logo-container">
-        <img src="JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo" />
+        <a href="/index.html"
+          ><img src="/JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo"
+        /></a>
       </div>
       <div id="header-nav-containter">
         <ul class="header-btn">
@@ -62,15 +64,15 @@
         </div>
         <div id="header-login">
           <div id="header-Account-cart">
-            <button class="header-btn" id="header-Cart-btn">
-              <p>Cart</p>
-            </button>
             <a
               href="./HTML/pages/accountPage.html"
               class="header-btn"
               id="header-Account-btn"
               ><p>Account</p></a
             >
+            <button class="header-btn" id="header-Cart-btn">
+              <p>Cart</p>
+            </button>
           </div>
           <button class="header-btn" id="header-login-btn">
             <p>Login</p>

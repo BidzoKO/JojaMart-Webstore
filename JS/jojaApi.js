@@ -1,4 +1,4 @@
-import * as functionLibrary from './functionLibrary.js';
+import * as functionLibrary from "./functionLibrary.js";
 
 // user signin POST method
 export async function UserLogIn() {
@@ -28,11 +28,11 @@ export async function UserLogIn() {
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
       functionLibrary.enableScroll();
-      functionLibrary.configureUIForAuth(true);
+      functionLibrary.configureIndexUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
         "<!--registration html-->";
     })
-    .catch((error) => console.log("Error widh data"));
+    .catch((error) => console.log(error));
 }
 
 // only for testing needs changing
@@ -44,10 +44,13 @@ export async function GetUserById() {
     method: "GET",
   };
   try {
-    const data = await functionLibrary.MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
+    const data = await functionLibrary.MakeAuthenticatedAPICall(
+      apiEndpoint,
+      apiOptions
+    );
     console.log(data);
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
@@ -78,7 +81,7 @@ export function CreateNewUser() {
       console.log(data);
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
-      functionLibrary.configureUIForAuth(true);
+      functionLibrary.configureIndexUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
         "<!--registration html-->";
     })
@@ -129,12 +132,18 @@ export async function UserLogout() {
     method: "DELETE",
   };
 
-  const data = await functionLibrary.MakeAuthenticatedAPICall(apiEndpoint, apiOptions);
+  const data = await functionLibrary.MakeAuthenticatedAPICall(
+    apiEndpoint,
+    apiOptions
+  );
 
   if (data) {
     Cookies.remove("accessToken");
     Cookies.remove("refreshToken");
-    functionLibrary.configureUIForAuth(false);
+
+    window.location.assign("/index.html");
+
+    functionLibrary.configureIndexUIForAuth(false);
   }
 }
 
@@ -194,4 +203,28 @@ export async function GetProductByName(product) {
   console.log(productItem);
 
   return productItem;
+}
+
+export async function GetUseridentity() {
+  const token = Cookies.get("accessToken");
+
+  const apiEndpoint = "https://localhost:7177/User/GetUserInfo";
+
+  let apiOptions = {
+    method: "POST",
+    body: JSON.stringify({
+      AccessToken: token,
+    }),
+  };
+
+  try {
+    const data = await functionLibrary.MakeAuthenticatedAPICall(
+      apiEndpoint,
+      apiOptions
+    );
+    return data;
+
+  } catch (error) {
+    throw new Error(error);
+  }
 }
