@@ -1,214 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>JojaMart Webstore</title>
-    <link rel="stylesheet" href="/CSS/style.css" />
-    <link rel="icon" href="/JojaMart_files/Logo/Joja_Cola.png" />
-    <script src="/JS/main/account.js" type="Module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@100;300;400&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!--header-->
-    <header id="header-region">
-      <div id="logo-container">
-        <a href="/index.html"
-          ><img src="/JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo"
-        /></a>
-      </div>
-      <div id="header-nav-containter">
-        <ul class="header-btn">
-          <li>
-            <button class="header-btn" id="header-nav-permanent">
-              <p>Permanent Stock</p>
-            </button>
-          </li>
-          <li>
-            <button class="header-btn" id="header-nav-fall">
-              <p>Fall Stock</p>
-            </button>
-          </li>
-          <li>
-            <button class="header-btn" id="header-nav-summer">
-              <p>Summer Stock</p>
-            </button>
-          </li>
-          <li>
-            <button class="header-btn" id="header-nav-spring">
-              <p>Spring Stock</p>
-            </button>
-          </li>
-        </ul>
-      </div>
-      <div id="header-right-container">
-        <div id="search-bar">
-          <input type="text" placeholder="Search" id="header-search" />
-          <div class="mag-glass-img-container">
-            <a href="">
-              <img
-                src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                alt=""
-            /></a>
-          </div>
-        </div>
-        <div id="account-header-Account-cart">
-          <a
-          href="/index.html"
-          class="header-btn"
-          id="account-header-home-btn"
-          ><p>Home</p></a
-        >
-          <button class="header-btn" id="account-header-Cart-btn">
-            <p>Cart</p>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JojaMart Webstore</title>
+  <link rel="stylesheet" href="/CSS/style.css" />
+  <link rel="icon" href="/JojaMart_files/Logo/Joja_Cola.png" />
+  <script src="/JS/main/account.js" type="Module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@100;300;400&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="unclickable-overlay" id="unclickable-overlay-account-id"></div>
+  <!--header-->
+  <header id="header-region">
+    <div id="logo-container">
+      <a href="/index.html"><img src="/JojaMart_files/Logo/JojaMart_Icon.png" alt="" id="logo" /></a>
+    </div>
+    <div id="header-nav-containter">
+      <ul class="header-btn">
+        <li>
+          <button class="header-btn" id="header-nav-permanent">
+            <p>Permanent Stock</p>
           </button>
+        </li>
+        <li>
+          <button class="header-btn" id="header-nav-fall">
+            <p>Fall Stock</p>
+          </button>
+        </li>
+        <li>
+          <button class="header-btn" id="header-nav-summer">
+            <p>Summer Stock</p>
+          </button>
+        </li>
+        <li>
+          <button class="header-btn" id="header-nav-spring">
+            <p>Spring Stock</p>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div id="header-right-container">
+      <div id="search-bar">
+        <input type="text" placeholder="Search" id="header-search" />
+        <div class="mag-glass-img-container">
+          <a href="">
+            <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" /></a>
         </div>
       </div>
-    </header>
-    <!--body-->
-    <section id="account-body">
-      <div id="account-body-container">
-        <div id="account-body-content">
-          <div id="account-identity-block">
-            <div id="account-identity-image">
-              <img
-                src="/JojaMart_files/element_icons/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                alt=""
-              />
-            </div>
-            <div id="account-identity-name-container">
-              <h4>jack ryan</h4>
-              <button id="account-identity-logout">Logout</button>
-            </div>
+      <div id="account-header-Account-cart">
+        <a href="/index.html" class="header-btn" id="account-header-home-btn">
+          <p>Home</p>
+        </a>
+        <button class="header-btn" id="account-header-Cart-btn">
+          <p>Cart</p>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!--body-->
+  <section id="account-body">
+    <div id="account-body-container">
+      <div id="account-body-content">
+        <div id="account-identity-block">
+          <div id="account-identity-image">
+            <img src="/JojaMart_files/element_icons/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="pfp" />
           </div>
-          <div id="account-nav-container">
+          <div id="account-identity-name">
+            <h4></h4>
+            <button id="account-identity-logout">Logout</button>
+          </div>
+        </div>
+        <div id="account-nav-container">
+          <ul>
+            <div class="account-nav-divider-line"></div>
+            <li data-content="dashboard">
+              <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" />Dashboard
+            </li>
+            <div class="account-nav-divider-line"></div>
+            <li data-content="orders">
+              <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" />Orders
+            </li>
+            <div class="account-nav-divider-line"></div>
+            <li data-content="information">
+              <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" />User information
+            </li>
+            <div class="account-nav-divider-line"></div>
+            <li data-content="details">
+              <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" />Account details
+            </li>
+            <div class="account-nav-divider-line"></div>
+            <li data-content="logout">
+              <img src="/JojaMart_files/element_icons/magnifying-glass-icon.png" alt="" />Logout
+            </li>
+          </ul>
+        </div>
+        <div id="account-nav-content-box">
+          <!--dynamic-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--footer-->
+  <section id="footer-region">
+    <div id="footer">
+      <div class="footer-body">
+        <div class="footer-content-container">
+          <div class="footer-content-cubicle">
             <ul>
-              <div class="account-nav-divider-line"></div>
-              <li data-content="dashboard">
-                <img
-                  src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                  alt=""
-                />Dashboard
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
               </li>
-              <div class="account-nav-divider-line"></div>
-              <li data-content="orders">
-                <img
-                  src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                  alt=""
-                />Orders
-              </li>
-              <div class="account-nav-divider-line"></div>
-              <li data-content="information">
-                <img
-                  src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                  alt=""
-                />User information
-              </li>
-              <div class="account-nav-divider-line"></div>
-              <li data-content="details">
-                <img
-                  src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                  alt=""
-                />Account details
-              </li>
-              <div class="account-nav-divider-line"></div>
-              <li data-content="logout">
-                <img
-                  src="/JojaMart_files/element_icons/magnifying-glass-icon.png"
-                  alt=""
-                />Logout
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
               </li>
             </ul>
           </div>
-          <div id="account-nav-content-box">
-            <!--dynamic-->
-            <div id="account-nav-orders-content-box">
-              <div id="orders-table-title-container"><h2>Orders</h2></div>
-              <div id="acc-orders-table-container">
-                <table>
-                  <tr>
-                    <th>id</th>
-                    <th>product</th>
-                    <th>quantity</th>
-                    <th>date</th>
-                  </tr>
-                </table>
-              </div>
-            </div>
+          <div class="footer-content-cubicle">
+            <ul>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-content-cubicle">
+            <ul>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-content-cubicle">
+            <ul>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+              <li><a href="">Lorem ipsum dolor sit amet.</a></li>
+              <li><a href="">Lorem, ipsum dolor.</a></li>
+              <li>
+                <a href="">Lorem ipsum dolor sit amet consectetur.</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </section>
-    <!--footer-->
-    <section id="footer-region">
-      <div id="footer">
-        <div class="footer-body">
-          <div class="footer-content-container">
-            <div class="footer-content-cubicle">
-              <ul>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-              </ul>
-            </div>
-            <div class="footer-content-cubicle">
-              <ul>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-              </ul>
-            </div>
-            <div class="footer-content-cubicle">
-              <ul>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-              </ul>
-            </div>
-            <div class="footer-content-cubicle">
-              <ul>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-                <li><a href="">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="">Lorem, ipsum dolor.</a></li>
-                <li>
-                  <a href="">Lorem ipsum dolor sit amet consectetur.</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </body>
+    </div>
+  </section>
+</body>
+
 </html>

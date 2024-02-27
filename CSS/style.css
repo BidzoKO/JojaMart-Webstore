@@ -1,3 +1,5 @@
+/*#region general*/
+
 * {
   margin: 0;
   padding: 0;
@@ -18,9 +20,181 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position-x: center;
+  overflow-x: hidden;
 }
 
+.unclickable-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: auto;
+  display: none;
+  backdrop-filter: blur(1px);
+  opacity: 0;
+}
+
+@keyframes slow-blur {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.unclickable-overlay.active {
+  display: block;
+  opacity: 1;
+  animation: slow-blur 0.5s ease;
+}
+
+.unclickable-overlay.no-blur {
+  display: block;
+  opacity: 0;
+}
+
+@keyframes fade-in {}
+
+/*dynamic*/
+
+@keyframes fade-left {}
+
+/*dynamic*/
+
+/*#endregion general*/
+
+/*#region Cart*/
+
+#cart-container {
+  top: 0px;
+  background-color: #e4d5c1;
+  border-left: 10px transparent solid;
+  border-image: url(/JojaMart_files/border_img/border-border.png) 20 stretch;
+  box-shadow: -5px 5px 5px rgba(0, 0, 0, 0.4);
+  /* Add shadow effect */
+  width: 350px;
+  height: 100%;
+  position: absolute;
+  right: 0px;
+  padding: 40px 10px 40px 20px;
+  padding-bottom: 130px;
+  z-index: 3;
+  animation: fade-left 0.3s ease;
+}
+
+#cart-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#cart-close-btn {
+  padding: 5px 8px;
+  text-align: center;
+  font-size: 20px;
+  margin-right: auto;
+  background-color: grey;
+  border-radius: 0.5em;
+  cursor: pointer;
+  user-select: none;
+}
+
+#cart-content h2 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 50px;
+}
+
+#cart-content-table {
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
+  gap: 2px;
+}
+
+#cart-content-empty-text {
+  background-color: #e4d5c1;
+  text-align: center;
+  color: rgb(90, 0, 38);
+  font-size: 24px;
+}
+
+.cart-item-delete-container {
+  padding-right: 30px;
+  justify-content: end;
+  display: flex;
+  grid-row: 1/1;
+  grid-column: 1/5;
+  font-size: 12px;
+}
+
+.cart-item .cart-item-delete-container p {
+  font-size: 14px;
+  cursor: pointer;
+  color: rgb(161, 22, 22);
+}
+
+.cart-item {
+  display: grid;
+  background-color: #e4d5c1;
+  gap: 5px;
+  grid-template-columns: 1fr 8fr 3fr 4fr;
+  grid-template-rows: 2fr;
+  overflow: hidden;
+  padding-bottom: 28px;
+  padding-top: 8px;
+}
+
+.cart-item img {
+  vertical-align: middle;
+  height: 20px;
+}
+
+.cart-item p,
+h3 {
+  font-size: 18px;
+}
+
+#cart-purchase-btn-container {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#cart-subtotal {
+  display: flex;
+}
+
+#cart-subtotal img {
+  margin-top: auto;
+  width: auto;
+  height: 19px;
+}
+
+#cart-purchase-btn-container button {
+  cursor: pointer;
+  font-size: 22px;
+  background-color: #c0b3a5;
+  border: 1px black solid;
+  border-radius: 0.3em;
+  padding: 10px 15px;
+}
+
+#cart-purchase-btn-container button:hover {
+  background-color: #a5917c;
+}
+
+/*#endregion Cart*/
+
 /*#region registrationForm*/
+
 #registration-form {
   position: absolute;
   left: 50%;
@@ -31,8 +205,9 @@ body {
   width: 500px;
   padding: 40px 20px 30px 20px;
   box-shadow: 2px 2px 5px 5px rgba(0, 0, 0, 0.15);
-  z-index: 10;
+  z-index: 3;
   border-radius: 0.4em;
+  animation: fade-in 0.3s ease;
 }
 
 #login-form.inactive {
@@ -62,7 +237,9 @@ body {
 
 .registration-error-text {
   font-size: 16px;
+  height: 19px;
   color: red;
+  margin-left: auto;
 }
 
 .registration-form-text h2 {
@@ -72,14 +249,18 @@ body {
   margin-bottom: 20px;
 }
 
+.registration-form-elements-panel {
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
 .registration-form-element {
-  margin: 30px 0px;
   display: flex;
   flex-direction: column;
 }
 
 .registration-form-element label {
-  margin-bottom: 15px;
+  padding-bottom: 10px;
 }
 
 .registration-form-element input,
@@ -106,7 +287,13 @@ body {
 }
 
 .registration-form-bottom-panel {
-  padding-top: 30px;
+  padding-top: 10px;
+}
+
+#signin-error-text {
+  color: red;
+  font-size: 18px;
+  min-height: 21px;
 }
 
 .registration-form-tag a {
@@ -128,12 +315,12 @@ body {
 
 /*signup elements--------------------------------------------------------------------*/
 
-#signup-form-elements-panel .registration-form-element {
-  margin: 20px 0px;
+#signup-form-elements-panel {
+  gap: 3px;
 }
 
-#signup-form-elements-panel .registration-form-element label {
-  margin-bottom: 10px;
+#signup-dob-gender-element {
+  padding-bottom: 20px;
 }
 
 #signup-dob-gender-element div {
@@ -151,7 +338,9 @@ body {
 }
 
 /*#endregion  registrationForm*/
+
 /*#region header*/
+
 #header-region {
   width: 100%;
   height: 90px;
@@ -295,7 +484,6 @@ body {
 #header-Account-cart {
   display: none;
   gap: 5px;
-  margi
 }
 
 #header-Account-cart.Active {
@@ -303,6 +491,7 @@ body {
 }
 
 /*#endregion header*/
+
 /*#region body*/
 
 #body-region {
@@ -335,10 +524,13 @@ body {
 .limited-items-container {
   padding: 0 25px;
   position: relative;
+  min-height: 300px;
+  display: flex;
+
+  align-items: end;
 }
 
 .limited-items-content {
-  margin-top: 100px;
   overflow: hidden;
   display: grid;
   gap: 20px;
@@ -418,7 +610,7 @@ body {
   background-color: white;
   border-radius: 50%;
   position: absolute;
-  top: 50%;
+  top: 65%;
   transform: translateY(-50%);
   user-select: none;
 }
@@ -519,6 +711,7 @@ body {
 
 /*#endregion body-popular-items*/
 /*#endregion body*/
+
 /*#region footer*/
 
 .footer-body {
@@ -529,6 +722,10 @@ body {
   justify-content: center;
   align-items: center;
   margin-top: auto;
+}
+
+.footer-body a {
+  pointer-events: none;
 }
 
 .footer-content-container {
@@ -562,29 +759,19 @@ body {
 }
 
 /*#endregion body-footer*/
+
 /*#region separate*/
 
-#item-expand-close-btn {
-}
+#item-expand-close-btn {}
 
-#item-expand-section {
-}
+#item-expand-section {}
 
-@keyframes fade-in {
-  from {
-    top: 55%;
-    opacity: 0.3;
-  }
-  to {
-    top: 50%;
-    opacity: 1;
-  }
-}
-
-#item-expand-container {
+#item-expand-container.active {
   width: 1000px;
   height: 500px;
   background-color: rgb(222, 225, 228);
+  background-image: url(../JojaMart_files/Patterns/woody-5.2.jpg);
+  background-repeat: repeat;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -593,7 +780,7 @@ body {
   border-radius: 0.5em;
   box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
   transform: translate(-50%, -50%);
-  z-index: 1000;
+  z-index: 3;
   padding: 40px;
   animation: fade-in 0.3s ease;
 }
@@ -647,28 +834,40 @@ body {
   align-items: center;
   display: flex;
   position: relative;
+  vertical-align: middle;
 }
 
 #item-expand-price img {
-  height: 35%;
-  justify-content: center;
-  margin-top: 5px;
+  width: 28px;
+  height: auto;
+  vertical-align: middle;
 }
 
 #item-expand-add-to-cart-container {
+  box-sizing: border-box;
   margin-left: auto;
   align-items: center;
   display: flex;
   flex-direction: column;
-  row-gap: 15px;
+  row-gap: 1px;
+}
+
+#add-to-cart-error {
+  height: 16px;
+  font-size: 14px;
+  color: red;
 }
 
 #item-expand-amount-input {
   width: 50px;
-  border: 1px grey solid;
+  border: 2px transparent solid;
   border-radius: 0.2em;
   height: auto;
   text-align: center;
+}
+
+#item-expand-amount-input.error {
+  outline: 2px red solid;
 }
 
 #item-expand-amount-input input::-webkit-outer-spin-button,
@@ -677,13 +876,22 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+#item-expand-add-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
 .item-expand-amount-btn {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border: 0px;
   border-radius: 1em;
-  background-color: silver;
+  background-color: white;
+  color: #0c0436;
   font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
 }
 
 #item-expand-to-cart-btn {
@@ -700,6 +908,9 @@ input::-webkit-inner-spin-button {
 }
 
 /*#endregion seperate*/
+
+/*----------------------------------------------------------------------- account page -----------------------------------------------------------------------*/
+
 /*#region account*/
 
 #account-header-Account-cart {
@@ -730,6 +941,7 @@ input::-webkit-inner-spin-button {
 
 #account-body-content {
   border: 12px transparent solid;
+  border-radius: 0.5em;
   border-image: url(/JojaMart_files/border_img/border-border.png) 15 stretch;
   display: grid;
   height: 700px;
@@ -805,17 +1017,18 @@ input::-webkit-inner-spin-button {
   padding-top: 100px;
 }
 
-#account-identity-name-container {
+#account-identity-name {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-#account-identity-name-container h4 {
+#account-identity-name h4 {
   font-size: 26px;
+  min-height: 30px;
 }
 
-#account-identity-name-container button {
+#account-identity-name button {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -828,9 +1041,7 @@ input::-webkit-inner-spin-button {
   display: flex;
 }
 
-
 /*orders*/
-
 
 #account-nav-orders-content-box {
   display: flex;
@@ -849,23 +1060,33 @@ input::-webkit-inner-spin-button {
 }
 
 #acc-orders-table-container {
-  border: 1px solid grey;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.767);
+  background-color: rgba(171, 171, 171, 255);
 }
 
-#acc-orders-table-container table{
-
+#acc-orders-table-container table {
   width: 100%;
+  border-spacing: 3px;
 }
 
-#acc-orders-table-container table, tr, th {
-
+#acc-orders-table-container tr {
+  text-align: left;
 }
 
+#acc-orders-table-container th {
+  color: white;
+  background-color: rgba(94, 94, 94, 255);
+}
+
+#acc-orders-table-container td,
+th {
+  font-size: 16px;
+  padding: 10px 10px;
+  background-color: white;
+  margin: 0px;
+}
 
 /*logout*/
-
 
 #account-nav-logout-box {
   display: flex;
@@ -874,6 +1095,88 @@ input::-webkit-inner-spin-button {
   margin-left: auto;
   margin-bottom: 50px;
   gap: 20px;
+}
+
+/*acc details*/
+#account-detail-container {
+  padding: 20px 0px 0px 50px;
+  width: 100%;
+  display: grid;
+}
+
+#account-detail-content-grid {
+  row-gap: 70px;
+  height: min-content;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 5fr 3fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.account-detail-content-item {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.account-detail-content-item img {
+  cursor: pointer;
+  vertical-align: middle;
+  height: 24px;
+  max-width: auto;
+}
+
+.account-detail-content-item h5 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#account-detail-profilePicture-container input{
+  display: flex;
+  cursor: pointer;
+  vertical-align: auto;
+  height: auto;
+  width: min-content;
+  min-width: max-content;
+}
+
+#account-details-change-btn-container {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  gap: 20px;
+}
+
+.account-details-btn {
+  font-size: 22px;
+  cursor: pointer;
+  color: white;
+  border: 0px transparent solid;
+  border-radius: 0.3em;
+  background-color: #095f0c93;
+  padding: 8px 12px;
+}
+
+.account-detail-view-mode{
+  display: flex;
+}
+
+.account-detail-view-mode p{
+  max-width: 250px;
+  overflow: hidden;
+}
+
+.account-detail-edit-mode{
+  z-index: 3;
+  display: none;
+}
+
+.account-detail-edit-mode img{
+  cursor: pointer;
+}
+
+.account-detail-edit-mode input{
+  max-width: 215px;
 }
 
 /*#endregion account*/

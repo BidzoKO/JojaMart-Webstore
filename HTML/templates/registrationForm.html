@@ -6,6 +6,7 @@
       <div class="registration-form-element">
         <label for="login-email">Email</label>
         <input type="text" id="login-email" placeholder="Enter Email" />
+        <p id="login-email-error-text" class="registration-error-text"></p>
       </div>
       <div class="registration-form-element">
         <label for="login-password">password</label>
@@ -14,10 +15,12 @@
           id="login-password"
           placeholder="Enter password"
         />
+        <p id="login-password-error-text" class="registration-error-text"></p>
       </div>
     </div>
     <div class="registration-form-confirm-btn-panel">
       <button id="signin-btn" type="button">Sign In</button>
+      <p id="signin-error-text"></p>
     </div>
     <div class="registration-form-bottom-panel">
       <div class="registration-form-tag">
@@ -29,7 +32,6 @@
   <div id="signup-form">
     <div class="registration-form-text"><h2>Sign Up</h2></div>
     <div
-      class="registration-form-elements-panel"
       id="signup-form-elements-panel"
     >
       <div class="registration-form-element">

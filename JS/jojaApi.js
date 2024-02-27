@@ -1,9 +1,11 @@
 import * as functionLibrary from "./functionLibrary.js";
 
-// user signin POST method
 export async function UserLogIn() {
-  const userEmail = document.querySelector("#login-email");
-  const userPassword = document.querySelector("#login-password");
+  const userCredentials = functionLibrary.CheckLoginCredentials();
+
+  if (userCredentials == null) {
+    return console.log("login credentials invalid");
+  }
 
   fetch("https://localhost:7177/User/UserLogin", {
     method: "POST",
@@ -11,8 +13,8 @@ export async function UserLogIn() {
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      email: userEmail.value,
-      password: userPassword.value,
+      email: userCredentials.email,
+      password: userCredentials.password,
     }),
   })
     .then((res) => {
@@ -20,24 +22,23 @@ export async function UserLogIn() {
         console.log("fetch result valid");
       } else {
         console.log("fetch result error");
+        document.getElementById("signin-error-text").innerHTML = "wrong email or password";
       }
       return res.json();
     })
     .then((data) => {
-      console.log(data);
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
-      functionLibrary.enableScroll();
-      functionLibrary.configureIndexUIForAuth(true);
+      functionLibrary.LoginFormConifg("disable");
+      functionLibrary.ConfigureIndexUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
         "<!--registration html-->";
     })
     .catch((error) => console.log(error));
 }
 
-// only for testing needs changing
 export async function GetUserById() {
-  const userId = 10;
+  const userId = 12;
   const apiEndpoint = `https://localhost:7177/User/GetuserById?Id=${userId}`;
 
   let apiOptions = {
@@ -54,12 +55,11 @@ export async function GetUserById() {
   }
 }
 
-// creates a new user by signing up
 export function CreateNewUser() {
   const userObject = functionLibrary.assembleUserForCreation();
 
   if (userObject == null) {
-    return console.log("signup user object incomplete");
+    return;
   }
 
   fetch("https://localhost:7177/User/CreateNewUser", {
@@ -71,26 +71,31 @@ export function CreateNewUser() {
   })
     .then((res) => {
       if (res.ok) {
-        console.log("fetch result valid");
+        
       } else {
         throw new Error("fetch result error");
       }
       return res.json();
     })
     .then((data) => {
-      console.log(data);
       Cookies.set("accessToken", data.accessToken);
       Cookies.set("refreshToken", data.refreshToken);
-      functionLibrary.configureIndexUIForAuth(true);
+      functionLibrary.ConfigureIndexUIForAuth(true);
       document.getElementById("registration-form-container").innerHTML =
         "<!--registration html-->";
     })
     .catch((error) => console.log(error));
 }
 
-// user reauthentication api call for when access token is
 export async function ReauthenticateUser() {
   const refreshToken = Cookies.get("refreshToken");
+
+  if (refreshToken == null) {
+    return {
+      message: "refresh token missing, not logged in",
+      statusCode: 401,
+    };
+  }
 
   try {
     const response = await fetch("https://localhost:7177/User/RefreshJwt", {
@@ -99,7 +104,7 @@ export async function ReauthenticateUser() {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        refreshToken: refreshToken,
+        stringValue: refreshToken,
       }),
     });
 
@@ -124,7 +129,6 @@ export async function ReauthenticateUser() {
   }
 }
 
-// logout deletes JWTs
 export async function UserLogout() {
   const apiEndpoint = "https://localhost:7177/User/Logout";
 
@@ -143,12 +147,102 @@ export async function UserLogout() {
 
     window.location.assign("/index.html");
 
-    functionLibrary.configureIndexUIForAuth(false);
+    functionLibrary.ConfigureIndexUIForAuth(false);
   }
 }
 
-// ----------------------------------
-// static information section
+export async function GetCartItems() {
+  const apiEndpoint = "https://localhost:7177/Order/GetCartItems";
+
+  const apiOptions = {
+    method: "GET",
+  };
+
+  try {
+    const data = await functionLibrary.MakeAuthenticatedAPICall(
+      apiEndpoint,
+      apiOptions
+    );
+
+    if (data == 204) {
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function DeleteCartItem(itemId) {
+  const apiEndpoint = "https://localhost:7177/Order/DeleteCartItem";
+
+  const apiOptions = {
+    method: "DELETE",
+    body: JSON.stringify({
+      intValue: itemId,
+    }),
+  };
+
+  const response = await functionLibrary.MakeAuthenticatedAPICall(
+    apiEndpoint,
+    apiOptions
+  );
+
+  try {
+    if (response.status === 200) {
+      return "Success";
+    } else {
+      throw new Error(
+        "Unexpected response from the MakeAuthenticatedAPICall API while deleting cart item"
+      );
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function OrderCartItems() {
+  const apiEndpoint = "https://localhost:7177/Order/OrderProducts";
+
+  const apiOptions = {
+    method: "POST",
+  };
+
+  const response = await functionLibrary.MakeAuthenticatedAPICall(
+    apiEndpoint,
+    apiOptions
+  );
+
+  try {
+    if (response.status === 200) {
+      return response;
+    } else {
+      throw new Error(
+        "Unexpected response from the MakeAuthenticatedAPICall API while purchasing products"
+      );
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function UpdateUserDetails(userDetails){
+  const apiEndpoint = "https://localhost:7177/Order/OrderProducts";
+
+  const apiOptions = {
+    method: "POST",
+    body: 
+      JSON.stringify(userDetails)
+  };
+
+  const response = await functionLibrary.MakeAuthenticatedAPICall(
+    apiEndpoint,
+    apiOptions
+  );
+}
+
+//#region static info
 
 export async function GetLimitedTimeItems() {
   const response = await fetch(
@@ -181,9 +275,7 @@ export async function GetPopularItems() {
 
   const productList = await response.json();
 
-  for (let i = 0; i < 8; i++) {
-    functionLibrary.InsertPopularItem(productList[i]);
-  }
+  functionLibrary.InsertPopularItem(productList);
 }
 
 export async function GetProductByName(product) {
@@ -200,21 +292,14 @@ export async function GetProductByName(product) {
 
   const productItem = await response.json();
 
-  console.log(productItem);
-
   return productItem;
 }
 
-export async function GetUseridentity() {
-  const token = Cookies.get("accessToken");
-
+export async function GetUserIdentity() {
   const apiEndpoint = "https://localhost:7177/User/GetUserInfo";
 
   let apiOptions = {
     method: "POST",
-    body: JSON.stringify({
-      AccessToken: token,
-    }),
   };
 
   try {
@@ -223,8 +308,9 @@ export async function GetUseridentity() {
       apiOptions
     );
     return data;
-
   } catch (error) {
     throw new Error(error);
   }
 }
+
+//#endregion static info
